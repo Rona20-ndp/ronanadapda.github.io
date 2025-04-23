@@ -1,41 +1,46 @@
-let books = [];
+// Ambil data dari localStorage atau inisialisasi array kosong
+let items = JSON.parse(localStorage.getItem('items')) || [];
 
-document.getElementById('bookForm').addEventListener('submit', function(event) {
+// Menampilkan item saat halaman dimuat
+displayItems();
+
+// Menangani pengiriman form
+document.getElementById('itemForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    const title = document.getElementById('bookTitle').value;
-    const author = document.getElementById('bookAuthor').value;
+    const itemName = document.getElementById('itemName').value;
 
-    const book = {
-        title: title,
-        author: author
-    };
-
-    books.push(book);
-    displayBooks();
-    this.reset();
+    // Tambahkan item ke array
+    items.push(itemName);
+    localStorage.setItem('items', JSON.stringify(items)); // Simpan ke localStorage
+    displayItems(); // Tampilkan item
+    this.reset(); // Reset form
 });
 
-function displayBooks() {
-    const bookList = document.getElementById('bookList');
-    bookList.innerHTML = '';
+// Fungsi untuk menampilkan item
+function displayItems() {
+    const itemList = document.getElementById('itemList');
+    itemList.innerHTML = ''; // Kosongkan daftar item
 
-    books.forEach((book, index) => {
+    items.forEach((item, index) => {
         const li = document.createElement('li');
-        li.textContent = `${book.title} oleh ${book.author}`;
-        
+        li.textContent = item;
+
+        // Tombol hapus
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Hapus';
         deleteButton.onclick = function() {
-            deleteBook(index);
+            deleteItem(index);
         };
 
         li.appendChild(deleteButton);
-        bookList.appendChild(li);
+        itemList.appendChild(li);
     });
 }
 
-function deleteBook(index) {
-    books.splice(index, 1);
-    displayBooks();
+// Fungsi untuk menghapus item
+function deleteItem(index) {
+    items.splice(index, 1); // Hapus item dari array
+    localStorage.setItem('items', JSON.stringify(items)); // Simpan perubahan ke localStorage
+    displayItems(); // Tampilkan item
 }
