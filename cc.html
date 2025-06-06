@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Platform Sekolah/Kuliah Online</title>
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    /* CSS Variables for color palette */
+    :root {
+      --color-bg: #ffffff;
+      --color-primary: #111827; /* dark gray */
+      --color-secondary: #3b82f6; /* blue */
+      --color-accent: #2563eb; /* darker blue */
+      --color-gray-text: #6b7280;
+      --color-gray-light: #f9fafb;
+      --color-error: #ef4444;
+      --color-success: #16a34a;
+      --border-radius: 0.75rem;
+      --shadow-light: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-hover: 0 4px 8px rgba(0,0,0,0.12);
+      --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--color-primary);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    a:hover, a:focus {
+      color: var(--color-accent);
+      outline: none;
+      text-decoration: underline;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--color-bg);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 1000;
+      box-shadow: var(--shadow-light);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      user-select: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.5rem;
+      transition: background-color var(--transition-fast), color var(--transition-fast);
+    }
+    .nav-links li a:hover,
+    .nav-links li a:focus {
+      background-color: var(--color-secondary);
+      color: #fff;
+      outline: none;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 1rem;
+      line-height: 1.1;
+      color: var(--color-primary);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-gray-text);
+      margin: 0 0 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+      box-shadow: var(--shadow-light);
+      user-select: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: var(--color-secondary);
+      outline: none;
+      transform: scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Section Titles */
+    h2.section-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--color-primary);
+    }
+
+    /* Pembelajaran Section */
+    .pembelajaran {
+      padding-bottom: 6rem;
+    }
+    .material-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+    }
+    .material-card {
+      background-color: var(--color-gray-light);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .material-card:hover,
+    .material-card:focus-within {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+      outline: none;
+    }
+    .material-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-primary);
+    }
+    .material-desc {
+      font-size: 1rem;
+      color: var(--color-gray-text);
+      flex-grow: 1;
+    }
+    .material-link {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: var(--color-secondary);
+      align-self: flex-start;
+      transition: color var(--transition-fast);
+    }
+    .material-link:hover,
+    .material-link:focus {
+      color: var(--color-accent);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Hubungi Kami Section */
+    .hubungi-kami {
+      padding-bottom: 6rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form {
+      background-color: var(--color-gray-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: var(--border-radius);
+      resize: vertical;
+      transition: border-color var(--transition-fast);
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--color-secondary);
+      outline: none;
+      box-shadow: 0 0 5px var(--color-secondary);
+    }
+    textarea {
+      min-height: 120px;
+    }
+    .form-error {
+      color: var(--color-error);
+      font-size: 0.875rem;
+      margin-top: -1rem;
+      margin-bottom: 0.5rem;
+      display: none;
+    }
+    .form-success {
+      color: var(--color-success);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: none;
+      text-align: center;
+    }
+    button[type="submit"] {
+      background-color: var(--color-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+      box-shadow: var(--shadow-light);
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: var(--color-secondary);
+      outline: none;
+      transform: scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-gray-text);
+      background-color: #f3f4f6;
+      user-select: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 0.85rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <div class="logo" tabindex="0">SekolahKu</div>
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a href="#home" role="menuitem" tabindex="0">Home</a></li>
+        <li role="none"><a href="#pembelajaran" role="menuitem" tabindex="-1">Pembelajaran</a></li>
+        <li role="none"><a href="#hubungi-kami" role="menuitem" tabindex="-1">Hubungi Kami</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home" tabindex="-1">
+      <h1>Meningkatkan Efisiensi Pembelajaran Online</h1>
+      <p>Platform lengkap untuk sekolah dan kuliah dengan akses materi pembelajaran daring dan saluran pengaduan.</p>
+      <button class="btn-primary" id="btnLihatMateri" aria-controls="pembelajaran" aria-expanded="false">Lihat Materi</button>
+    </section>
+
+    <section class="pembelajaran container" id="pembelajaran" tabindex="-1" aria-label="Pembelajaran daring">
+      <h2 class="section-title">Materi Pembelajaran</h2>
+      <div class="material-list" id="materialList" role="list">
+        <!-- Course materials cards added by JS -->
+      </div>
+    </section>
+
+    <section class="hubungi-kami container" id="hubungi-kami" tabindex="-1" aria-label="Kolom pengaduan">
+      <h2 class="section-title">Hubungi Kami</h2>
+      <form id="contactForm" novalidate aria-describedby="formMessage">
+        <div>
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" name="nama" required aria-required="true" aria-describedby="namaError" />
+          <div class="form-error" id="namaError" role="alert"></div>
+        </div>
+        <div>
+          <label for="email">Alamat Email</label>
+          <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailError" />
+          <div class="form-error" id="emailError" role="alert"></div>
+        </div>
+        <div>
+          <label for="pesan">Pesan</label>
+          <textarea id="pesan" name="pesan" required aria-required="true" aria-describedby="pesanError"></textarea>
+          <div class="form-error" id="pesanError" role="alert"></div>
+        </div>
+        <button type="submit">Kirim Pesan</button>
+        <div id="formMessage" class="form-success" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2024 SekolahKu. Semua hak cipta dilindungi.
+  </footer>
+
+  <script>
+    // Sample data for materi pembelajaran
+    const materiPembelajaran = [
+      {
+        id: 1,
+        title: 'Dasar Pemrograman',
+        description: 'Pelajari konsep dasar pemrograman menggunakan bahasa populer.',
+        link: 'https://example.com/dasar-pemrograman'
+      },
+      {
+        id: 2,
+        title: 'Jaringan Komputer',
+        description: 'Materi lengkap mengenai topologi, protokol, dan perangkat jaringan.',
+        link: 'https://example.com/jaringan-komputer'
+      },
+      {
+        id: 3,
+        title: 'Basis Data',
+        description: 'Pengantar sistem manajemen basis data dan SQL.',
+        link: 'https://example.com/basis-data'
+      },
+      {
+        id: 4,
+        title: 'Sistem Operasi',
+        description: 'Konsep dan arsitektur sistem operasi modern.',
+        link: 'https://example.com/sistem-operasi'
+      },
+      {
+        id: 5,
+        title: 'Cloud Computing',
+        description: 'Pengenalan konsep dan layanan cloud computing.',
+        link: 'https://example.com/cloud-computing'
+      }
+    ];
+
+    // Render materi cards
+    const materialListEl = document.getElementById('materialList');
+    function renderMateri() {
+      materialListEl.innerHTML = '';
+      materiPembelajaran.forEach(materi => {
+        const card = document.createElement('article');
+        card.className = 'material-card';
+        card.tabIndex = 0;
+        card.role = 'listitem';
+        card.innerHTML = `
+          <h3 class="material-title">${materi.title}</h3>
+          <p class="material-desc">${materi.description}</p>
+          <a href="${materi.link}" target="_blank" rel="noopener noreferrer" class="material-link" aria-label="Buka materi ${materi.title}">Buka Materi</a>
+        `;
+        materialListEl.appendChild(card);
+      });
+    }
+    renderMateri();
+
+    // Smooth scroll navigation and button
+    function smoothScrollTo(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.focus({preventScroll:true});
+        window.scrollTo({
+          top: element.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    }
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1);
+        smoothScrollTo(targetId);
+        // Update tab focus for menu items
+        navFocusUpdate(targetId);
+      });
+    });
+    document.getElementById('btnLihatMateri').addEventListener('click', () => {
+      smoothScrollTo('pembelajaran');
+      document.getElementById('btnLihatMateri').setAttribute('aria-expanded', 'true');
+    });
+
+    // Manage tabIndex to improve keyboard navigation focus in nav menu
+    function navFocusUpdate(activeId) {
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.tabIndex = (a.getAttribute('href').slice(1) === activeId) ? 0 : -1;
+      });
+    }
+    // Initialize nav tabIndex on page load
+    navFocusUpdate('home');
+
+    // Form validation and submission handling
+    const form = document.getElementById('contactForm');
+    const namaInput = document.getElementById('nama');
+    const emailInput = document.getElementById('email');
+    const pesanInput = document.getElementById('pesan');
+    const formMessage = document.getElementById('formMessage');
+
+    function showError(inputEl, message) {
+      const errorEl = document.getElementById(inputEl.id + 'Error');
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+      inputEl.setAttribute('aria-invalid', 'true');
+    }
+    function clearError(inputEl) {
+      const errorEl = document.getElementById(inputEl.id + 'Error');
+      errorEl.textContent = '';
+      errorEl.style.display = 'none';
+      inputEl.removeAttribute('aria-invalid');
+    }
+    function validateEmail(email) {
+      // Simple email regex
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate Nama
+      if (!namaInput.value.trim()) {
+        showError(namaInput, 'Nama lengkap wajib diisi.');
+        valid = false;
+      } else {
+        clearError(namaInput);
+      }
+
+      // Validate Email
+      if (!emailInput.value.trim()) {
+        showError(emailInput, 'Alamat email wajib diisi.');
+        valid = false;
+      } else if (!validateEmail(emailInput.value.trim())) {
+        showError(emailInput, 'Format email tidak valid.');
+        valid = false;
+      } else {
+        clearError(emailInput);
+      }
+
+      // Validate Pesan
+      if (!pesanInput.value.trim()) {
+        showError(pesanInput, 'Pesan wajib diisi.');
+        valid = false;
+      } else {
+        clearError(pesanInput);
+      }
+
+      if (!valid) {
+        formMessage.style.display = 'none';
+        return;
+      }
+
+      // Simulate sending: store in localStorage
+      let storedMessages = JSON.parse(localStorage.getItem('pesanPengaduan')) || [];
+      storedMessages.push({
+        nama: namaInput.value.trim(),
+        email: emailInput.value.trim(),
+        pesan: pesanInput.value.trim(),
+        tanggal: new Date().toISOString()
+      });
+      localStorage.setItem('pesanPengaduan', JSON.stringify(storedMessages));
+
+      formMessage.textContent = 'Pesan berhasil dikirim, terima kasih atas masukan Anda!';
+      formMessage.style.display = 'block';
+
+      // Reset form
+      form.reset();
+
+      // Return focus accessibility to message container
+      formMessage.focus();
+    });
+  </script>
+</body>
+</html>
+
